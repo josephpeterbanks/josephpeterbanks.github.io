@@ -25,7 +25,6 @@
             max-width: 90%;
             width: 400px;
 			margin-bottom: 20px;
-			margin-top: 20px;
         }
 
         h1 {
@@ -83,6 +82,14 @@
             max-width: 90%;
             width: 400px;
 			color: #6B6B6B;
+			margin-bottom: 20px;
+        }
+		
+		.legal {
+            padding: 20px;
+            max-width: 90%;
+            width: 400px;
+			color: #6B6B6B;
         }
 
         .instructions h2 {
@@ -130,19 +137,22 @@
         <button onclick="findSeat()">Find My Seat</button>
         
         <div id="route" class="route">
-            Welcome to Coliseum Compass <br>
-			Built by Joseph Banks
         </div>
     </div>
 	
 	<!-- New Instruction Section -->
     <div class="instructions">
-        <h2>How to Use This Website</h2>
+        <h2>How to Use Coliseum Compass</h2>
         <p>1. Select the level you are on from the dropdown menu.</p>
         <p>2. Enter the seat number in this form: B21 or b21.</p>
         <p>3. Click the "Find My Seat" button.</p>
         <p>4. The best route to the seat will be displayed.</p>
     </div>
+	
+	<div class="legal">
+		This website is an unofficial project and is not affiliated with, endorsed by, or licensed by the London Coliseum or its associated organizations.
+		<br><br>Built by Joseph Banks
+	</div>
 
     <script>
 		document.getElementById('seatId').addEventListener('keydown', function(event) {
@@ -151,6 +161,10 @@
                 findSeat(); // Trigger the function to find the seat
             }
         });
+		
+		document.getElementById('seatId').addEventListener('focus', function() {
+			this.value = ''; // Clears the input field when it gains focus
+		});
 	
 		const layout = {
 				"stalls": {
