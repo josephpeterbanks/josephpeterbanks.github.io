@@ -95,11 +95,27 @@
             line-height: 1.5;
             margin-bottom: 10px;
         }
+		
+		.header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            width: 50px; /* Adjust the size as needed */
+            height: auto;
+            margin-right: 10px; /* Space between logo and heading */
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Coliseum Compass</h1>
+        <div class="header">
+            <img src="https://github.com/josephpeterbanks/josephpeterbanks.github.io/blob/main/Logo.png" alt="Logo" class="logo">
+            <h1>Coliseum Compass</h1>
+        </div>
         
         <label for="level">Select Level:</label>
         <select id="level">
