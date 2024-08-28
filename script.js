@@ -9,8 +9,16 @@ document.getElementById('seatId').addEventListener('focus', function() {
 	this.value = '';
 });
 
-const darkLogo = new Image();
-darkLogo.src = 'LogoDark.png';
+document.addEventListener("DOMContentLoaded", function() {
+    const darkLogo = new Image();
+    darkLogo.src = 'LogoDark.png';
+	
+	if (localStorage.getItem('theme') === 'dark') {    
+		const logo = document.getElementById('logo');
+		logo.src = 'LogoDark.png';
+        document.body.classList.add('dark-theme');
+    }
+});
 
 const layout = {
 	"stalls": {
@@ -77,12 +85,14 @@ function toggleDarkMode(route) {
     const logo = document.getElementById('logo');
     
     if (document.body.classList.contains('dark-theme')) {
+		localStorage.setItem('theme', 'dark');
         logo.src = 'LogoDark.png';
 		route.innerText = `Dark Mode On!
 		`;
 		route.style.color = "";
 		route.style.display = "block";
     } else {
+		localStorage.setItem('theme', 'light');
         logo.src = 'Logo.png';
 		route.innerText = `Dark Mode Off!
 		`;
