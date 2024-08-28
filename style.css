@@ -40,7 +40,6 @@ select, input[type="text"] {
 	font-weight: 400;
 	background-color: #ffffff;
 	color: black;
-	min-height: 48px;
 }
 
 button {
