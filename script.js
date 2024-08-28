@@ -9,6 +9,9 @@ document.getElementById('seatId').addEventListener('focus', function() {
 	this.value = '';
 });
 
+const darkLogo = new Image();
+darkLogo.src = 'LogoDark.png';
+
 const layout = {
 	"stalls": {
 		"A": { aisles: [5.5, 20.5, 25.5], outer: false},
