@@ -109,3 +109,32 @@ button:hover {
 	height: auto;
 	max-width: 90%;
 }
+
+.dark-theme {
+    background-color: #121212;
+    color: #D8D8D8;
+}
+
+.dark-theme .container, .dark-theme .instructions {
+    background-color: #1e1e1e;
+}
+
+.dark-theme button {
+    background-color: #2F6830;
+}
+
+.dark-theme button:hover {
+    background-color: #295929;
+}
+
+.dark-theme select, .dark-theme input[type="text"] {
+	border: 1px solid #121212;
+	background-color: #333333;
+	color: #D8D8D8;
+}
+
+.dark-theme .route {
+	background-color: #3F3F3F;
+	border: 1px solid #121212;
+	color: #E5E5E5;
+}
