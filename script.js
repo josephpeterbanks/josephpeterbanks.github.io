@@ -139,6 +139,11 @@ function findSeat() {
 			route.style.color = "";
 			route.style.display = "block";
 			toggleDarkMode(route);
+		} else if (seatId.toLowerCase() == "spin") {
+			document.body.classList.toggle('spin-page');
+			setTimeout(() => {
+				document.body.classList.remove("spin-page");
+			}, 1500);
 		} else {
 			route.innerText = `Please enter a valid seat (e.g. B21, G36)!
 			`;
