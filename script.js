@@ -67,6 +67,25 @@ const layout = {
 			"K": { aisles: [6.5, 19.5, 32.5, 45.5, 51.5], outer: true}
 		}
 	};
+function getSuffix(num) {
+    const lastDigit = num % 10;
+    const lastTwoDigits = num % 100;
+
+    if (lastTwoDigits >= 11 && lastTwoDigits <= 13) {
+        return num + 'th';
+    }
+
+    switch (lastDigit) {
+        case 1:
+            return num + 'st';
+        case 2:
+            return num + 'nd';
+        case 3:
+            return num + 'rd';
+        default:
+            return num + 'th';
+    }
+}
 
 function findSeat() {
 	const level = document.getElementById("level").value;
@@ -97,24 +116,24 @@ function findBestRoute(level, row, seatNumber, route) {
 		if (seatNumber <= aisles[aisles.length - 1] && seatNumber > 0) {
 			let routeDesc = "";
 			if (outer == "left") {
-				const offset = aisles[0] - seatNumber - 0.5;
-				if (offset == 0) {
+				const offset = aisles[0] - seatNumber + 0.5;
+				if (offset == 1) {
 					routeDesc = `Door 3 Right
 					On the Aisle`;
 				} else {
 					routeDesc = `Door 3 Right
-					${offset} Seats from the Aisle`;
+					${getSuffix(offset)} Seat from the Aisle`;
 				}
 			} else if (outer == true) {
 			
 				let closestAisle = 0;
 				let minDistance = Math.abs(seatNumber - 0.5);
-				let offset = seatNumber - 1;
+				let offset = seatNumber;
 
 				for (let i = 0; i < aisles.length; i++) {
 					const distance = Math.abs(seatNumber - aisles[i]);
 					if (distance < minDistance) {
-						offset = Math.abs(aisles[i] - seatNumber) - 0.5;
+						offset = Math.abs(aisles[i] - seatNumber) + 0.5;
 						minDistance = distance;
 						closestAisle = i+1;
 					}
@@ -122,39 +141,39 @@ function findBestRoute(level, row, seatNumber, route) {
 				
 				const direction = seatNumber < aisles[closestAisle-1] ? "Right" : "Left";
 				if (closestAisle == 0) {
-					if (offset == 0) {
+					if (offset == 1) {
 						routeDesc = `Far Right Aisle
 						On the Aisle`;
 					} else {
 						routeDesc = `Far Right Aisle
-						${offset} Seats from the Aisle`;
+						${getSuffix(offset)} Seat from the Aisle`;
 					}
 				} else if (closestAisle == aisles.length) {
-					if (offset == 0) {
+					if (offset == 1) {
 						routeDesc = `Far Left Aisle
 						On the Aisle`;
 					} else {
 						routeDesc = `Far Left Aisle
-						${offset} Seats from the Aisle`;
+						${getSuffix(offset)} Seat from the Aisle`;
 					}
 				} else {
-					if (offset == 0) {
+					if (offset == 1) {
 						routeDesc = `Aisle ${closestAisle} ${direction}
 						On the Aisle`;
 					} else {
 						routeDesc = `Aisle ${closestAisle} ${direction}
-						${offset} Seats from the Aisle`;
+						${getSuffix(offset)} Seat from the Aisle`;
 					}
 				}
 			} else if (outer == false) {
 				let closestAisle = 1;
 				let minDistance = Math.abs(seatNumber - aisles[0]);
-				let offset = Math.abs(aisles[0] - seatNumber) - 0.5;
+				let offset = Math.abs(aisles[0] - seatNumber) + 0.5;
 
 				for (let i = 1; i < aisles.length - 1; i++) {
 					const distance = Math.abs(seatNumber - aisles[i]);
 					if (distance < minDistance) {
-						offset = Math.abs(aisles[i] - seatNumber) - 0.5;
+						offset = Math.abs(aisles[i] - seatNumber) + 0.5;
 						minDistance = distance;
 						closestAisle = i+1;
 					}
@@ -162,22 +181,22 @@ function findBestRoute(level, row, seatNumber, route) {
 				
 				const direction = seatNumber < aisles[closestAisle-1] ? "Right" : "Left";
 				
-				if (offset == 0) {
+				if (offset == 1) {
 					routeDesc = `Aisle ${closestAisle} ${direction}
 					On the Aisle`;
 				} else {
 					routeDesc = `Aisle ${closestAisle} ${direction}
-					${offset} Seats from the Aisle`;
+					${getSuffix(offset)} Seat from the Aisle`;
 				}
 			} else if (outer == "extend") {
 				let closestAisle = 1;
 				let minDistance = Math.abs(seatNumber - aisles[0]);
-				let offset = Math.abs(aisles[0] - seatNumber) - 0.5;
+				let offset = Math.abs(aisles[0] - seatNumber) + 0.5;
 
 				for (let i = 1; i < aisles.length - 1; i++) {
 					const distance = Math.abs(seatNumber - aisles[i]);
 					if (distance < minDistance) {
-						offset = Math.abs(aisles[i] - seatNumber) - 0.5;
+						offset = Math.abs(aisles[i] - seatNumber) + 0.5;
 						minDistance = distance;
 						closestAisle = i+1;
 					}
@@ -187,28 +206,28 @@ function findBestRoute(level, row, seatNumber, route) {
 				closestAisle = closestAisle - 1;
 				
 				if (closestAisle == 0) {
-					if (offset == 0) {
+					if (offset == 1) {
 						routeDesc = `Far Right Aisle
 						On the Aisle`;
 					} else {
 						routeDesc = `Far Right Aisle
-						${offset} Seats from the Aisle`;
+						${getSuffix(offset)} Seat from the Aisle`;
 					}
 				} else if (closestAisle == aisles.length - 2) {
-					if (offset == 0) {
+					if (offset == 1) {
 						routeDesc = `Far Left Aisle
 						On the Aisle`;
 					} else {
 						routeDesc = `Far Left Aisle
-						${offset} Seats from the Aisle`;
+						${getSuffix(offset)} Seat from the Aisle`;
 					}
 				} else {
-					if (offset == 0) {
+					if (offset == 1) {
 						routeDesc = `Aisle ${closestAisle} ${direction}
 						On the Aisle`;
 					} else {
 						routeDesc = `Aisle ${closestAisle} ${direction}
-						${offset} Seats from the Aisle`;
+						${getSuffix(offset)} Seat from the Aisle`;
 					}
 				}
 			}
