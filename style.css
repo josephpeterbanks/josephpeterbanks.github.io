@@ -149,3 +149,37 @@ button:hover {
 	border: 1px solid #121212;
 	color: #E5E5E5;
 }
+
+footer {
+    position: relative;
+    padding: 10px;
+	justify-content: center;
+	text-align: center;
+}
+
+.version-container {
+	width: 100px;
+	height: 50px;
+    position: relative;
+    display: inline-block;
+}
+
+.version-info {
+	width: 50px;
+	height: 20px;
+    display: none;
+    position: absolute;
+    bottom: 0px;
+    right: 20px;
+    background: #ddd;
+    color: black;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 10; /* Ensure it appears on top of other content */
+}
+
+.version-container:hover .version-info {
+    display: block;
+}
