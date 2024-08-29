@@ -13,6 +13,12 @@ document.addEventListener("DOMContentLoaded", function() {
     const darkLogo = new Image();
     darkLogo.src = 'LogoDark.png';
 	
+	const Claude = new Image();
+	Claude.src = 'Claude.png';
+	
+	const darkClaude = new Image();
+	darkClaude.src = 'ClaudeDark.png';
+	
 	if (localStorage.getItem('theme') === 'dark') {    
 		const logo = document.getElementById('logo');
 		logo.src = 'LogoDark.png';
@@ -78,6 +84,37 @@ const layout = {
 		"K": { aisles: [6.5, 19.5, 32.5, 45.5, 51.5], outer: true}
 	}
 };
+
+var meow = false;
+
+function replaceTextWithMeow(route) {
+	meow = true;
+	
+	const logo = document.getElementById('logo');
+    
+    if (document.body.classList.contains('dark-theme')) {
+        logo.src = 'ClaudeDark.png';
+    } else {
+        logo.src = 'Claude.png';
+    }
+	route.innerText = `Meow
+	`;
+	route.style.color = "";
+	route.style.display = "block";
+	
+	function replaceTextContent(node) {
+		if (node.nodeType === Node.TEXT_NODE) {
+			const text = node.textContent;
+            const replacedText = text.replace(/\b[a-zA-Z]+\b/g, (match) => {
+                return /^[A-Z]/.test(match) ? 'Meow' : 'meow';
+            });
+            node.textContent = replacedText;
+		} else {
+			node.childNodes.forEach(child => replaceTextContent(child));
+		}
+	}
+	replaceTextContent(document.body);
+}
 	
 function toggleDarkMode(route) {
 	document.body.classList.toggle('dark-theme');
@@ -126,6 +163,14 @@ function findSeat() {
 	const seatId = document.getElementById("seatId").value.trim();
 	const route = document.getElementById("route");
 	
+	if (meow) {
+		route.innerText = `Meow
+			`;
+		route.style.color = "";
+		route.style.display = "block";
+		return;
+	}
+	
 	const match = seatId.match(/^([A-Za-z])(\d+)$/);
 	if (match) {
 		const row = match[1];
@@ -144,6 +189,8 @@ function findSeat() {
 			setTimeout(() => {
 				document.body.classList.remove("spin-page");
 			}, 1500);
+		} else if (seatId.toLowerCase() == "claude") {
+			replaceTextWithMeow(route);
 		} else {
 			route.innerText = `Please enter a valid seat (e.g. B21, G36)!
 			`;
