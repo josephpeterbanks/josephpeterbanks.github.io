@@ -179,6 +179,7 @@ footer {
     font-size: 12px;
     white-space: nowrap;
     z-index: 10; /* Ensure it appears on top of other content */
+	pointer-events: none;
 }
 
 .version-info.show {
