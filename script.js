@@ -1,15 +1,33 @@
-document.getElementById('seatId').addEventListener('keydown', function(event) {
-	if (event.key === 'Enter') {
-		event.preventDefault();
-		findSeat();
-	}
-});
-
-document.getElementById('seatId').addEventListener('focus', function() {
-	this.value = '';
-});
-
 document.addEventListener("DOMContentLoaded", function() {
+	const versionContainer = document.querySelector('.version-container');
+	
+	const seatInput = document.getElementById('seatId');
+	
+	if (seatInput) {
+		seatInput.addEventListener('focus', function() {
+			this.value = '';
+		});
+		seatInput.addEventListener('keydown', function(event) {
+			if (event.key === 'Enter') {
+				event.preventDefault();
+				findSeat();
+			}
+		});
+	}
+    
+    if (versionContainer) {
+        versionContainer.addEventListener('click', function() {
+            const versionInfo = document.querySelector('.version-info');
+            versionInfo.classList.add('show');
+			
+			setTimeout(function() {
+				versionInfo.classList.remove('show');
+			}, 1500);
+        });
+    } else {
+        console.error('Version container not found');
+    }
+	
     const darkLogo = new Image();
     darkLogo.src = 'LogoDark.png';
 	
@@ -85,10 +103,10 @@ const layout = {
 	}
 };
 
-var meow = false;
+var lock = false;
 
 function replaceTextWithMeow(route) {
-	meow = true;
+	lock = true;
 	
 	const logo = document.getElementById('logo');
     
@@ -163,11 +181,7 @@ function findSeat() {
 	const seatId = document.getElementById("seatId").value.trim();
 	const route = document.getElementById("route");
 	
-	if (meow) {
-		route.innerText = `Meow
-			`;
-		route.style.color = "";
-		route.style.display = "block";
+	if (lock) {
 		return;
 	}
 	

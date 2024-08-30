@@ -167,9 +167,10 @@ footer {
 .version-info {
 	width: 50px;
 	height: 20px;
-    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
     position: absolute;
-    bottom: 0px;
+    bottom: 10px;
     right: 20px;
     background: #ddd;
     color: black;
@@ -180,6 +181,6 @@ footer {
     z-index: 10; /* Ensure it appears on top of other content */
 }
 
-.version-container:hover .version-info {
-    display: block;
+.version-info.show {
+    opacity: 1;
 }
