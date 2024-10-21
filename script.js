@@ -44,6 +44,13 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+window.addEventListener("load", function() {
+	const menuHeight = document.querySelector('.menu').offsetHeight;
+	setTimeout(function() {
+		window.scrollTo(0, menuHeight);
+	}, 0);
+});
+
 const layout = {
 	"stalls": {
 		"A": { aisles: [5.5, 20.5, 25.5], outer: false},
@@ -187,10 +194,17 @@ function findSeat() {
 	
 	const match = seatId.match(/^([A-Za-z])(\d+)$/);
 	if (match) {
-		const row = match[1];
-		const seatNumber = match[2];
+		if (level != "") {
+			const row = match[1];
+			const seatNumber = match[2];
 
-		findBestRoute(level, row.toUpperCase(), seatNumber, route);
+			findBestRoute(level, row.toUpperCase(), seatNumber, route);
+		} else {
+			route.innerText = `Please select a level!
+			`;
+			route.style.color = "red";
+			route.style.display = "block";
+		}
 	} else {
 		if (seatId.toLowerCase() == "dark") {
 			route.innerText = `Dark Mode On!
