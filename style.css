@@ -62,14 +62,24 @@ button {
 	cursor: pointer;
 	font-family: "Poppins", sans-serif;
 	font-weight: 400;
+	margin-bottom: 20px;
+}
+
+.button-margin {
+	margin-right: 10px;
 }
 
 button:hover {
 	background-color: #45a049;
 }
 
-.route {
-	margin-top: 20px;
+.button-container {
+	display: inline-block;
+	display: flex;
+}
+
+.route, .location {
+	margin-bottom: 20px;
 	padding: 10px;
 	background-color: #e9ecef;
 	border-radius: 5px;
@@ -163,10 +173,15 @@ button:hover {
 	color: #D8D8D8;
 }
 
-.dark-theme .route {
+.dark-theme .route, .dark-theme .location {
 	background-color: #3F3F3F;
 	border: 1px solid #121212;
 	color: #E5E5E5;
+}
+
+.dark-theme .menu a {
+	color: #D8D8D8;
+	background-color: #1e1e1e;
 }
 
 footer {
@@ -203,4 +218,45 @@ footer {
 
 .version-info.show {
     opacity: 1;
+}
+
+h3 {
+    color: black;
+    margin-bottom: 5px;
+}
+
+.dark-theme h3 {
+	color: white;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li {
+    padding: 5px 0;
+    font-size: 1em;
+    color: #555;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+span {
+    font-style: italic;
+    color: #888;
+}
+
+button.remove-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+	width: 40px;
+}
+
+button.remove-button:hover {
+    background-color: darkred;
 }

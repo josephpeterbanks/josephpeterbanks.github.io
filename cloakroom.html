@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ColiseumCompass</title>
+    <link rel="stylesheet" href="style.css">
+	
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+	
+</head>
+<body>
+	<div class="menu">
+		<a href="index.html">Home</a>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <img src="Logo.png" id="logo" class="logo">
+        </div>
+		
+		<h3>Cloakroom</h3>
+		
+		<label for="ticketId">Enter Ticket Number:</label>
+        <input type="text" id="ticketId" placeholder="e.g. 215, 783">
+        
+        <label for="storage">Select Storage:</label>
+        <select id="storage">
+			<option value="" disabled selected hidden></option>
+			<option value="floor">Floor</option>
+            <option value="bag1">Bags 1</option>
+            <option value="bag2">Bags 2</option>
+            <option value="bag3">Bags 3</option>
+            <option value="bag4">Bags 4</option>
+			<option value="coat1">Coats 1</option>
+			<option value="coat2">Coats 2</option>
+			<option value="coat3">Coats 3</option>
+			<option value="coat4">Coats 4</option>
+        </select>
+		
+		<label for="itemNotes">Additional Notes:</label>
+        <input type="text" id="itemNotes" placeholder="e.g. with 472, red bag">
+        
+		<div class="button-container">
+			<button onclick="findItem()" class="button-margin">Find Item</button>
+			<button onclick="storeItem()">Store Item</button>
+		</div>
+        
+        <div id="location" class="location">
+        </div>
+    </div>
+	
+	<div class="container">
+		<div id="Floor">
+			<h3>Floor</h3>
+			<ul id="floor-tickets"></ul>
+		</div>
+		<div id="Bag1">
+			<h3>Bags 1</h3>
+			<ul id="bag1-tickets"></ul>
+		</div>
+		<div id="Bag2">
+			<h3>Bags 2</h3>
+			<ul id="bag2-tickets"></ul>
+		</div>
+		<div id="Bag3">
+			<h3>Bags 3</h3>
+			<ul id="bag3-tickets"></ul>
+		</div>
+		<div id="Bag4">
+			<h3>Bags 4</h3>
+			<ul id="bag4-tickets"></ul>
+		</div>
+		<div id="Coat1">
+			<h3>Coats 1</h3>
+			<ul id="coat1-tickets"></ul>
+		</div>
+		<div id="Coat2">
+			<h3>Coats 2</h3>
+			<ul id="coat2-tickets"></ul>
+		</div>
+		<div id="Coat3">
+			<h3>Coats 3</h3>
+			<ul id="coat3-tickets"></ul>
+		</div>
+		<div id="Coat4">
+			<h3>Coats 4</h3>
+			<ul id="coat4-tickets"></ul>
+		</div>
+		<button onclick="clearCloakroom()">Empty Cloakroom</button>
+	</div>
+	
+    <div class="instructions">
+        <h2>How to Use ColiseumCloakroom</h2>
+        <p>1. Enter the ticket number e.g. 215, 783 and storage location.</p>
+        <p>2. Add any additional notes and click "Store Item".</p>
+        <p>3. Or use "Find Item" to retrieve the location and notes.</p>
+		<p>4. Items are listed below under their storage locations.</p>
+		<p>5. Each location refers to a cupboard or wardrobe you assign. </p>
+		<p>Enter keyword "dark" to toggle darkmode.
+    </div>
+	
+	
+	
+	<div class="legal">
+		This website is an unofficial project and is not affiliated with, endorsed by, or licensed by the London Coliseum or its associated organizations.
+		<br>Built by Joe Banks
+	</div>
+
+	<script src="script.js"></script>
+	<script src="cloakroom.js"></script>
+	
+	<footer>
+        <div id="version-container" class="version-container">
+            <div class="version-info">v2.0.0</div>
+        </div>
+	</footer>
+</body>
+</html>
