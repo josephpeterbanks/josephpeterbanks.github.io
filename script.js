@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 	
 	fetch('version.txt')
+		.then(response => response.text())
 		.then(version => {
 			document.getElementById('version').innerText = version.trim();
 		});
