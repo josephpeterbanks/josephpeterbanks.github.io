@@ -56,6 +56,11 @@ document.addEventListener("DOMContentLoaded", function() {
 		logo.src = 'LogoDark.png';
         document.body.classList.add('dark-theme');
     }
+	
+	fetch('version.txt')
+		.then(version => {
+			document.getElementById('version').innerText = version.trim();
+		});
 });
 
 window.addEventListener("load", function() {

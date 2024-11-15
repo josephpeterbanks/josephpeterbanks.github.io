@@ -1,4 +1,4 @@
-const ticketGroups = {
+const tagGroups = {
     bag1: [],
     bag2: [],
     bag3: [],
@@ -11,26 +11,25 @@ const ticketGroups = {
 };
 
 function findItem() {
-	//	const storage = document.getElementById("storage").value;
-	const ticketId = document.getElementById("ticketId").value.trim();
+	const tagId = document.getElementById("tagId").value;
 	const locationbox = document.getElementById("location");
 
-	const match = ticketId.match(/^\d+$/);
+	const match = tagId.match(/^\d+$/);
 	
 	if (match) {
-		findTicket(match, locationbox);
+		findTag(match, locationbox);
 		locationbox.style.color = "";
 		locationbox.style.display = "block";
-		displayTickets();
+		displayTags();
 	} else {
-		if (ticketId.toLowerCase() == "dark") {
+		if (tagId.toLowerCase() == "dark") {
 			locationbox.innerText = `Dark Mode On!
 			`;
 			locationbox.style.color = "";
 			locationbox.style.display = "block";
 			toggleDarkMode(locationbox);
 		} else {
-			locationbox.innerText = `Please enter a valid ticket (e.g. 214, 783)!
+			locationbox.innerText = `Please enter a valid tag (e.g. 214, 783)!
 			`;
 			locationbox.style.color = "red";
 			locationbox.style.display = "block";
@@ -41,17 +40,17 @@ function findItem() {
 function storeItem() {
 	const storage = document.getElementById("storage").value;
 	const notes = document.getElementById("itemNotes").value;
-	const ticketId = document.getElementById("ticketId").value.trim();
+	const tagId = document.getElementById("tagId").value;
 	const locationbox = document.getElementById("location");
 	
-	const match = ticketId.match(/^\d+$/);
+	const match = tagId.match(/^\d+$/);
 	
 	if (match) {
 		if (storage != "") {
-			addTicket(storage, ticketId, notes, locationbox);
+			addTag(storage, tagId, notes, locationbox);
 			locationbox.style.color = "";
 			locationbox.style.display = "block";
-			displayTickets();
+			displayTags();
 		} else {
 			locationbox.innerText = `Please select a storage!
 			`;
@@ -59,14 +58,14 @@ function storeItem() {
 			locationbox.style.display = "block";
 		}
 	} else {
-		if (ticketId.toLowerCase() == "dark") {
+		if (tagId.toLowerCase() == "dark") {
 			locationbox.innerText = `Dark Mode On!
 			`;
 			locationbox.style.color = "";
 			locationbox.style.display = "block";
 			toggleDarkMode(locationbox);
 		} else {
-			locationbox.innerText = `Please enter a valid ticket (e.g. 214, 783)!
+			locationbox.innerText = `Please enter a valid tag (e.g. 214, 783)!
 			`;
 			locationbox.style.color = "red";
 			locationbox.style.display = "block";
@@ -74,37 +73,68 @@ function storeItem() {
 	}
 }
 
-function addTicket(group, number, note = "", locationbox) {
-	for (const groupName in ticketGroups) {
-        const ticketExists = ticketGroups[groupName].some(ticket => ticket.number === number);
-        if (ticketExists) {
+function addTag(group, number, note = "", locationbox) {
+	for (const groupName in tagGroups) {
+        const tagExists = tagGroups[groupName].some(tag => tag.number === number);
+        if (tagExists) {
             locationbox.innerText = `${number} already added
 			`;
             return;
         }
     }
 	
-    if (ticketGroups[group]) {
-        ticketGroups[group].push({ number, note });
+    if (tagGroups[group]) {
+        tagGroups[group].push({ number, note });
         saveToLocalStorage();
-		locationbox.innerText = `${number} added to ${group}
-		`;
+		locationbox.innerText = formatAddTag(number, group);
     }
 }
 
-function findTicket(number, locationbox) {
+function formatAddTag(number, group) {
+	switch (group) {
+        case "bag1":
+            return `${number} added to Bags 1
+			`;
+        case "bag2":
+            return `${number} added to Bags 2
+			`;
+        case "bag3":
+            return `${number} added to Bags 3
+			`;
+		case "bag4":
+            return `${number} added to Bags 4
+			`;
+		case "coat1":
+            return `${number} added to Coats 1
+			`;
+		case "coat2":
+            return `${number} added to Coats 2
+			`;
+		case "coat3":
+            return `${number} added to Coats 3
+			`;
+		case "coat4":
+            return `${number} added to Coats 4
+			`;
+		case "floor":
+            return `${number} added to Floor
+			`;
+    }
+}
+
+function findTag(number, locationbox) {
 	const searchNumber = String(number);
-    for (const group in ticketGroups) {
-        const ticket = ticketGroups[group].find(t => t.number === searchNumber);
-        if (ticket) {
-			ticketLocation(searchNumber, group, ticket.note ? ticket.note : '', locationbox);
+    for (const group in tagGroups) {
+        const tag = tagGroups[group].find(t => t.number === searchNumber);
+        if (tag) {
+			tagLocation(searchNumber, group, tag.note ? tag.note : '', locationbox);
 			return;
         }
     }
-    locationbox.innerText = 'Ticket not found';
+    locationbox.innerText = 'Tag not found';
 }
 
-function ticketLocation(number, group, note, locationbox) {
+function tagLocation(number, group, note, locationbox) {
 	display = '';
 	switch (group) {
         case "bag1":
@@ -148,52 +178,52 @@ function ticketLocation(number, group, note, locationbox) {
 }
 
 function saveToLocalStorage() {
-    localStorage.setItem("ticketGroups", JSON.stringify(ticketGroups));
+    localStorage.setItem("tagGroups", JSON.stringify(tagGroups));
 }
 
 function loadFromLocalStorage() {
-    const storedData = localStorage.getItem("ticketGroups");
+    const storedData = localStorage.getItem("tagGroups");
     if (storedData) {
-        Object.assign(ticketGroups, JSON.parse(storedData));
+        Object.assign(tagGroups, JSON.parse(storedData));
     }
 }
 
-function countTotalTickets() {
-    let totalTickets = 0;
-    for (const group in ticketGroups) {
-        totalTickets += ticketGroups[group].length;
+function countTotalTags() {
+    let totalTags = 0;
+    for (const group in tagGroups) {
+        totalTags += tagGroups[group].length;
     }
-    return totalTickets;
+    return totalTags;
 }
 
 function clearCloakroom() {
 	const userConfirmed = window.confirm("Are you sure you want to clear the cloakroom? This action cannot be undone.");
 	
 	if (userConfirmed) {
-		for (const group in ticketGroups) {
-			ticketGroups[group] = [];
+		for (const group in tagGroups) {
+			tagGroups[group] = [];
 		}
 
-		displayTickets();
+		displayTags();
 		saveToLocalStorage();
 	}
 }
 
-function removeTicket(number) {
-	const ticketNumber = String(number);
+function removeTag(number) {
+	const tagNumber = String(number);
 	
 	const userConfirmed = window.confirm("Are you sure you want to remove this item? This action cannot be undone.");
 	
 	if (userConfirmed) {
-		for (const group in ticketGroups) {
-			const ticketIndex = ticketGroups[group].findIndex(t => t.number === ticketNumber);
+		for (const group in tagGroups) {
+			const tagIndex = tagGroups[group].findIndex(t => t.number === tagNumber);
 
-			if (ticketIndex !== -1) {
-				ticketGroups[group].splice(ticketIndex, 1);
+			if (tagIndex !== -1) {
+				tagGroups[group].splice(tagIndex, 1);
 
 				saveToLocalStorage();
 
-				displayTickets();
+				displayTags();
 				
 				return;
 			}
@@ -201,34 +231,54 @@ function removeTicket(number) {
 	}
 }
 
-function displayTickets() {
-    for (const group in ticketGroups) {
-        const ticketListElement = document.getElementById(`${group}-tickets`);
-        ticketListElement.innerHTML = "";
+function removeItem() {
+	const tagId = document.getElementById("tagId").value;
+	const locationbox = document.getElementById("location");
+	
+	const match = tagId.match(/^\d+$/);
+	
+	if (match) {
+		removeTag(match);
+		locationbox.innerHTML = `Removed ${match}
+		`;
+		locationbox.style.color = "";
+		locationbox.style.display = "block";
+	} else {
+		locationbox.innerHTML = `Please enter a valid tag (e.g. 214, 783)!
+		`;
+		locationbox.style.color = "red";
+		locationbox.style.display = "block";
+	}
+}
 
-        ticketGroups[group].forEach((ticket) => {
-            const ticketItem = document.createElement("li");
+function displayTags() {
+    for (const group in tagGroups) {
+        const tagListElement = document.getElementById(`${group}-tags`);
+        tagListElement.innerHTML = "";
 
-            ticketItem.textContent = `Ticket #: ${ticket.number}`;
+        tagGroups[group].forEach((tag) => {
+            const tagItem = document.createElement("li");
 
-            if (ticket.note) {
+            tagItem.textContent = `Tag #: ${tag.number}`;
+
+            if (tag.note) {
                 const noteElement = document.createElement("span");
-                noteElement.textContent = ` ${ticket.note}`;
-                ticketItem.appendChild(noteElement);
+                noteElement.textContent = ` ${tag.note}`;
+                tagItem.appendChild(noteElement);
             }
 
             const removeButton = document.createElement("button");
             removeButton.textContent = "X";
             removeButton.classList.add("remove-button");
 
-            removeButton.addEventListener("click", () => removeTicket(ticket.number));
+            removeButton.addEventListener("click", () => removeTag(tag.number));
 
-            ticketItem.appendChild(removeButton);
+            tagItem.appendChild(removeButton);
 
-            ticketListElement.appendChild(ticketItem);
+            tagListElement.appendChild(tagItem);
         });
     }
 }
 
 loadFromLocalStorage();
-displayTickets();
+displayTags();
