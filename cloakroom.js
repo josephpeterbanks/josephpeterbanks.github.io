@@ -1,3 +1,33 @@
+document.addEventListener("DOMContentLoaded", function() {
+	if (localStorage.getItem('theme') === 'dark') {    
+		const logo = document.getElementById('logo');
+		logo.src = 'CloakroomDark.png';
+        document.body.classList.add('dark-theme');
+    }
+});
+
+function toggleDarkMode(route) {
+	document.body.classList.toggle('dark-theme');
+    
+    const logo = document.getElementById('logo');
+    
+    if (document.body.classList.contains('dark-theme')) {
+		localStorage.setItem('theme', 'dark');
+        logo.src = 'CloakroomDark.png';
+		route.innerText = `Dark Mode On!
+		`;
+		route.style.color = "";
+		route.style.display = "block";
+    } else {
+		localStorage.setItem('theme', 'light');
+        logo.src = 'Cloakroom.png';
+		route.innerText = `Dark Mode Off!
+		`;
+		route.style.color = "";
+		route.style.display = "block";
+    }
+}
+
 const tagGroups = {
     bag1: [],
     bag2: [],

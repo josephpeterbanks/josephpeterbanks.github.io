@@ -51,12 +51,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	const darkClaude = new Image();
 	darkClaude.src = 'ClaudeDark.png';
 	
-	if (localStorage.getItem('theme') === 'dark') {    
-		const logo = document.getElementById('logo');
-		logo.src = 'LogoDark.png';
-        document.body.classList.add('dark-theme');
-    }
-	
 	fetch('version.txt')
 		.then(response => response.text())
 		.then(version => {
@@ -70,29 +64,3 @@ window.addEventListener("load", function() {
 		window.scrollTo(0, menuHeight);
 	}, 0);
 });
-
-
-
-
-	
-function toggleDarkMode(route) {
-	document.body.classList.toggle('dark-theme');
-    
-    const logo = document.getElementById('logo');
-    
-    if (document.body.classList.contains('dark-theme')) {
-		localStorage.setItem('theme', 'dark');
-        logo.src = 'LogoDark.png';
-		route.innerText = `Dark Mode On!
-		`;
-		route.style.color = "";
-		route.style.display = "block";
-    } else {
-		localStorage.setItem('theme', 'light');
-        logo.src = 'Logo.png';
-		route.innerText = `Dark Mode Off!
-		`;
-		route.style.color = "";
-		route.style.display = "block";
-    }
-}
