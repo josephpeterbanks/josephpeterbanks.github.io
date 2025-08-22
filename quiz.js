@@ -107,21 +107,27 @@ function getQuestion() {
 		postQuestion(aisle, quiztype);
 	} else if (quiztype == "aas") {
 		if (level == "stalls") {
-			postQuestion(aisleArray[Math.floor(Math.random() * 2)], quiztype);
+			aisle = aisleArray[Math.floor(Math.random() * 2)]
+			postQuestion(aisle, quiztype);
 		} else if (level == "dress-circle" || level == "upper-circle") {
-			postQuestion(aisleArray[Math.floor(Math.random() * 4)], quiztype);
+			aisle = aisleArray[Math.floor(Math.random() * 4)]
+			postQuestion(aisle, quiztype);
 		} else if (level == "balcony") {
-			postQuestion(aisleArray[Math.floor(Math.random() * 6)], quiztype);
+			aisle = aisleArray[Math.floor(Math.random() * 6)]
+			postQuestion(aisle, quiztype);
 		}
 	} else if (quiztype == "sad") {
 		postQuestion(aisle, quiztype);
 	} else if (quiztype == "aad") {
 		if (level == "stalls") {
-			postQuestion(aisleArray[Math.floor(Math.random() * 2)], quiztype);
+			aisle = aisleArray[Math.floor(Math.random() * 2)]
+			postQuestion(aisle, quiztype);
 		} else if (level == "dress-circle" || level == "upper-circle") {
-			postQuestion(aisleArray[Math.floor(Math.random() * 4)], quiztype);
+			aisle = aisleArray[Math.floor(Math.random() * 4)]
+			postQuestion(aisle, quiztype);
 		} else if (level == "balcony") {
-			postQuestion(aisleArray[Math.floor(Math.random() * 6)], quiztype);
+			aisle = aisleArray[Math.floor(Math.random() * 6)]
+			postQuestion(aisle, quiztype);
 		}
 	}
 }
@@ -130,13 +136,18 @@ function postQuestion(aisle, quiztype) {
 	if (quiztype == "sas" || quiztype == "aas") {
 		answer = getAisleSeat(level, aisle, row);
 		addTextToRoute(route, `${getAisleText(aisle)} Row ${row}?
-		`, "black");
+		`, "");
 	} else if (quiztype == "sad" || quiztype == "aad") {
 		seat = getSeatInRange(level, aisle, row);
 		aisleSeat = getAisleSeat(level, aisle, row) + 0.5;
 		answer = Math.ceil(Math.abs(aisleSeat - seat));
-		addTextToRoute(route, `${getAisleText(aisle)} ${row}${seat}?
-		`, "black");
+		if (quiztype == "sad") {
+			addTextToRoute(route, `${getAisleText(aisle)} ${row}${seat}?
+			`, "");
+		} else {
+			addTextToRoute(route, `${row}${seat}?
+			`, "");
+		}
 	}
 }
 
@@ -196,17 +207,17 @@ function getAisleSeat(level, aisle, row) {
 		}
 	} else if (outer === true) {
 		if (aisle == -1) {
-			return 1;
+			return 0;
 		} else if (aisle == 4) {
 			const noAisles = aisles.length;
-			return aisles[noAisles - 1];
+			return aisles[noAisles - 1] - 0.5;
 		} else {
 			return aisles[aisle] - 0.5;
 		}
 	} else if (outer === "extend") {
 		if (aisle == 4) {
 			const noAisles = aisles.length;
-			return aisles[noAisles - 2];
+			return aisles[noAisles - 2] - 0.5;
 		} else {
 			return aisles[aisle + 1] - 0.5;
 		}
@@ -228,19 +239,18 @@ function getSeatInRange(level, aisle, row) {
 			}
 		} else if (outer === true) {
 			if (aisle == -1) {
-				return getSeatBetween(0, findMiddleSeat(1, aisles[0] - 0.5));
+				return getSeatBetween(1, findMiddleSeat(1, aisles[0] - 0.5));
 			} else if (aisle == 4) {
 				const noAisles = aisles.length;
 				return getSeatBetween(findMiddleSeat(aisles[noAisles - 1] - 0.5, aisles[noAisles - 2] - 0.5), aisles[noAisles - 1] - 0.5);
 			} else if (aisle == 0) {
-				return getSeatBetween(0, findMiddleSeat(aisles[0] - 0.5, aisles[1] - 0.5));
+				return getSeatBetween(findMiddleSeat(1, aisles[0] - 0.5), findMiddleSeat(aisles[0] - 0.5, aisles[1] - 0.5));
 			} else {
 				return getSeatBetween(findMiddleSeat(aisles[aisle - 1] - 0.5, aisles[aisle] - 0.5), findMiddleSeat(aisles[aisle] - 0.5, aisles[aisle + 1] - 0.5));
 			}
 		} else if (outer === "extend") {
 			if (aisle == -1) {
-				const high = findMiddleSeat(aisles[0] - 0.5, aisles[1] - 0.5);
-				return getRndInteger(1, high + 1);
+				return getSeatBetween(1, findMiddleSeat(aisles[0] - 0.5, aisles[1] - 0.5));
 			} else if (aisle == 4) {
 				const noAisles = aisles.length;
 				return getSeatBetween(findMiddleSeat(aisles[noAisles - 2] - 0.5, aisles[noAisles - 3] - 0.5), aisles[noAisles - 1] - 0.5);
