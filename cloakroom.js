@@ -6,28 +6,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-function toggleDarkMode(route) {
-	document.body.classList.toggle('dark-theme');
-    
-    const logo = document.getElementById('logo');
-    
-    if (document.body.classList.contains('dark-theme')) {
-		localStorage.setItem('theme', 'dark');
-        logo.src = 'CloakroomDark.png';
-		route.innerText = `Dark Mode On!
-		`;
-		route.style.color = "";
-		route.style.display = "block";
-    } else {
-		localStorage.setItem('theme', 'light');
-        logo.src = 'Cloakroom.png';
-		route.innerText = `Dark Mode Off!
-		`;
-		route.style.color = "";
-		route.style.display = "block";
-    }
-}
-
 const tagGroups = {
     bag1: [],
     bag2: [],
@@ -52,18 +30,10 @@ function findItem() {
 		locationbox.style.display = "block";
 		displayTags();
 	} else {
-		if (tagId.toLowerCase() == "dark") {
-			locationbox.innerText = `Dark Mode On!
-			`;
-			locationbox.style.color = "";
-			locationbox.style.display = "block";
-			toggleDarkMode(locationbox);
-		} else {
-			locationbox.innerText = `Please enter a valid tag (e.g. 214, 783)!
-			`;
-			locationbox.style.color = "red";
-			locationbox.style.display = "block";
-		}
+		locationbox.innerText = `Please enter a valid tag (e.g. 214, 783)!
+		`;
+		locationbox.style.color = "red";
+		locationbox.style.display = "block";
 	}
 }
 

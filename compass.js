@@ -6,28 +6,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-function toggleDarkMode(route) {
-	document.body.classList.toggle('dark-theme');
-    
-    const logo = document.getElementById('logo');
-    
-    if (document.body.classList.contains('dark-theme')) {
-		localStorage.setItem('theme', 'dark');
-        logo.src = 'LogoDark.png';
-		route.innerText = `Dark Mode On!
-		`;
-		route.style.color = "";
-		route.style.display = "block";
-    } else {
-		localStorage.setItem('theme', 'light');
-        logo.src = 'Logo.png';
-		route.innerText = `Dark Mode Off!
-		`;
-		route.style.color = "";
-		route.style.display = "block";
-    }
-}
-
 const layout = {
 	"stalls": {
 		"A": { aisles: [5.5, 20.5, 25.5], outer: false},
@@ -161,13 +139,7 @@ function findSeat() {
 			route.style.display = "block";
 		}
 	} else {
-		if (seatId.toLowerCase() == "dark") {
-			route.innerText = `Dark Mode On!
-			`;
-			route.style.color = "";
-			route.style.display = "block";
-			toggleDarkMode(route);
-		} else if (seatId.toLowerCase() == "spin") {
+		if (seatId.toLowerCase() == "spin") {
 			document.body.classList.toggle('spin-page');
 			setTimeout(() => {
 				document.body.classList.remove("spin-page");

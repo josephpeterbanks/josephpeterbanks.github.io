@@ -18,17 +18,27 @@
 </head>
 <body>
 	<div class="menu">
+		<a href="/">Home</a>
         <a href="cloakroom">Cloakroom</a>
-		<a href="quiz">Quiz</a>
 		<a href="javascript:newToggleDarkMode();">Dark Mode</a>
     </div>
 
     <div class="container">
         <div class="header">
             <img src="Logo.png" id="logo" class="logo">
+			<h3>Quiz</h3>
         </div>
         
-        <label for="level">Select Level:</label>
+        <label for="quiztype">Select Quiz Type:</label>
+        <select id="quiztype">
+			<option value="" disabled selected hidden></option>
+            <option value="sas">Single Aisle Seat</option>
+            <option value="aas">All Aisle Seats</option>
+            <option value="sad">Single Aisle Distance</option>
+            <option value="aad">All Aisle Distance</option>
+        </select>
+		
+		<label for="level">Select Level:</label>
         <select id="level">
 			<option value="" disabled selected hidden></option>
             <option value="stalls">Stalls</option>
@@ -36,22 +46,36 @@
             <option value="upper-circle">Upper Circle</option>
             <option value="balcony">Balcony</option>
         </select>
+		
+		<label for="aisle">Select Aisle:</label>
+        <select id="aisle">
+			<option value="" disabled selected hidden></option>
+            <option value=0>Aisle 1</option>
+            <option value=1>Aisle 2</option>
+            <option value=2>Aisle 3</option>
+            <option value=3>Aisle 4</option>
+			<option value=-1>Right Side</option>
+			<option value=4>Left Side</option>
+        </select>
         
-        <label for="seatId">Enter Seat Number:</label>
-        <input type="text" id="seatId" placeholder="e.g. B21, G36">
-        
-        <button onclick="findSeat()">Find Seat</button>
-        
-        <div id="route" class="route">
+		<button onclick="getQuestion()">Next Question</button>
+		
+		<div id="route" class="route">
         </div>
+		
+        <label for="answer">Enter Answer:</label>
+        <input type="text" id="answer" placeholder="e.g. 21, 36">
+        
+        <button onclick="submitAnswer()">Submit</button>
     </div>
 	
     <div class="instructions">
-        <h2>How to Use ColiseumCompass</h2>
-        <p>1. Select the level and enter the seat number.</p>
-        <p>2. Click the "Find Seat" button to display the route.</p>
-        <p>3. Sides of the auditorium are "Far Left/Right Aisle".</p>
-		<p>4. Aisles are numbered in the same ascending direction as the seats.</p>
+        <h2>How to Use ColiseumQuiz</h2>
+        <p>1. Select the quiz type, level and aisle.</p>
+        <p>2. Click the "Next Question" button to receive the question.</p>
+        <p>3. Enter either the aisle seat number or distance to the aisle seat.</p>
+		<p>4. Aisle seat numbers are the seat on the right of the aisle.</p>
+		<p>5. Hit submit to check your answer.</p>
     </div>
 	
 	<div class="legal">
@@ -60,7 +84,7 @@
 	</div>
 
 	<script src="script.js"></script>
-	<script src="compass.js"></script>
+	<script src="quiz.js"></script>
 	
 	<footer>
         <div id="version-container" class="version-container">

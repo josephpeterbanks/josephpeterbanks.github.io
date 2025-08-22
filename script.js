@@ -1,8 +1,29 @@
+function newToggleDarkMode() {
+	document.body.classList.toggle('dark-theme');
+    
+    const logo = document.getElementById('logo');
+    
+    if (document.body.classList.contains('dark-theme')) {
+		localStorage.setItem('theme', 'dark');
+        logo.src = 'LogoDark.png';
+    } else {
+		localStorage.setItem('theme', 'light');
+        logo.src = 'Logo.png';
+    }
+}
+
+function addTextToRoute(route, t, col) {
+	route.innerText = t;
+	route.style.color = col;
+	route.style.display = "block";
+}
+
 document.addEventListener("DOMContentLoaded", function() {
 	const versionContainer = document.querySelector('.version-container');
 	
 	const seatInput = document.getElementById('seatId');
 	const ticketInput = document.getElementById('ticketId');
+	const answer = document.getElementById('answer');
 	
 	if (seatInput) {
 		seatInput.addEventListener('focus', function() {
@@ -28,6 +49,18 @@ document.addEventListener("DOMContentLoaded", function() {
 		});
 	}
 	
+	if (answer) {
+		answer.addEventListener('focus', function() {
+			this.value = '';
+		});
+		answer.addEventListener('keydown', function(event) {
+			if (event.key === 'Enter') {
+				event.preventDefault();
+				submitAnswer();
+				this.value = '';
+			}
+		});
+	}
     
     if (versionContainer) {
         versionContainer.addEventListener('click', function() {
